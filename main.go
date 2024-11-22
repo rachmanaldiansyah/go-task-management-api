@@ -1,26 +1,23 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
-	"task-management-api/config"
-	"task-management-api/controllers"
 
 	"github.com/gorilla/mux"
+	log "github.com/sirupsen/logrus"
+
+	"task-management-api/configs"
+	"task-management-api/routes"
 )
 
 func main() {
-	config.ConnectDB()
+	configs.LoadConfig()
+	configs.ConnectDB()
 
-	router := mux.NewRouter()
-	router.HandleFunc("/", controllers.HomePage).Methods("GET")
-	router.HandleFunc("/tasks", controllers.GetTasks).Methods("GET")
-	router.HandleFunc("/tasks/{id}", controllers.GetTaskByID).Methods("GET")
-	router.HandleFunc("/create", controllers.CreateTask).Methods("POST")
-	router.HandleFunc("/delete/{id}", controllers.DeleteTask).Methods("DELETE")
-	router.HandleFunc("/update/{id}", controllers.UpdateTask).Methods("PUT")
+	r := mux.NewRouter()
+	routes.RouteIndex(r)
 
-	// Jalankan server di port 8080
-	log.Println("Server running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Info("Server is running on port ", configs.ENV.PORT)
+	http.ListenAndServe(fmt.Sprintf(":%v", configs.ENV.PORT), r)
 }
