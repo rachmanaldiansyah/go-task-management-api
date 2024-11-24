@@ -10,8 +10,8 @@ func TaskRouter(r *mux.Router) {
 	router := r.PathPrefix("/tasks").Subrouter()
 
 	router.HandleFunc("", taskscontrollers.GetTasks).Methods("GET")
-	router.HandleFunc("", taskscontrollers.CreateTask).Methods("POST")
-	router.HandleFunc("/{id}/detail", taskscontrollers.GetTasksByID).Methods("GET")
-	router.HandleFunc("/{id}/update", taskscontrollers.UpdateTask).Methods("POST")
-	router.HandleFunc("/{id}/delete", taskscontrollers.DeleteTask).Methods("DELETE")
+	router.HandleFunc("/create", taskscontrollers.CreateTask).Methods("POST")
+	router.HandleFunc("/detail/{id}", taskscontrollers.GetTasksByID).Methods("GET")
+	router.HandleFunc("/update/{id}", taskscontrollers.UpdateTask).Methods("POST")
+	router.HandleFunc("/delete/{id}", taskscontrollers.DeleteTask).Methods("DELETE")
 }
