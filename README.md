@@ -9,6 +9,6 @@ Task Management API adalah sebuah RESTful API sederhana yang dirancang untuk men
 
 ## Teknologi yang Digunakan
 
-- **Bahasa Pemrograman**: Golang
-- **Database**: MySQL
-- **Framework/Library**: Mux & Go SQL Driver
+- **Bahasa Pemrograman**: Go (ver1.22.3)
+- **Database**: PosgtreSQL
+- **Framework/Library**: GORM, Logrus, Viper, Mux
